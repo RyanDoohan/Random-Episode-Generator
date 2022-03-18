@@ -3,8 +3,12 @@
 #include "episode-list.h"
 
 int main() {
-    int tes = 1;
-    EpisodeList test(tes, tes, "Pilot");
+    EpisodeList test(1, 1, "Pilot");
+    Episode tes;
+    tes.episodeName = "Work";
+    tes.episodeNumber = 2;
+    tes.episodeSeason = 1;
+    test.addEpisode(tes);
     test.displayAllEpisodes();
 
 

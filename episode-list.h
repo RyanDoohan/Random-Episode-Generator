@@ -4,15 +4,16 @@
 #include <iostream>
 #include <vector>
 
-class EpisodeList {
-    private:
-        struct Episode {
+struct Episode {
             int episodeNumber, episodeSeason;
             std::string episodeName;
         };
+
+class EpisodeList {
+    private:
         std::vector<Episode> EpisodeLst;
     public:
-        EpisodeList(int episodeNum, int episodeSeas, std::string name) {
+        EpisodeList(int episodeSeas, int episodeNum, std::string name) {
             Episode episode;
             episode.episodeNumber = episodeNum;
             episode.episodeSeason = episodeSeas;
@@ -30,11 +31,15 @@ class EpisodeList {
             return episode;
         }
 
+        void addEpisode(Episode newEpisode) {
+            EpisodeLst.push_back(newEpisode);
+        }
+
         std::string getEpisodeString(int index) {
             std::string result;
             
-            result = std::to_string(EpisodeLst[index].episodeNumber) + " ";
-            result += std::to_string(EpisodeLst[index].episodeSeason) + " ";
+            result = std::to_string(EpisodeLst[index].episodeSeason) + " ";
+            result += std::to_string(EpisodeLst[index].episodeNumber) + " ";
             result += EpisodeLst[index].episodeName;
             
             return result;
