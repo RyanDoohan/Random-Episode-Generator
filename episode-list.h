@@ -53,11 +53,14 @@ class EpisodeList {
         }
 
         void displayAllEpisodes() {
-            // for(Episode autoEpisode : EpisodeLst) {
-            //     
-            // }
             for(int i = 0; i < EpisodeLst.size(); i++) {
                 std::cout << getEpisodeString(i) << std::endl;
+            }
+        }
+
+        void displayEpisodeNames() {
+            for(Episode autoEpis : EpisodeLst) {
+                std::cout << autoEpis.episodeName << std::endl;
             }
         }
 };
