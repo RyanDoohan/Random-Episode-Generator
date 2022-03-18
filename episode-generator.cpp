@@ -10,6 +10,7 @@ int main() {
     tes.episodeSeason = 1;
     test.addEpisode(tes);
     test.displayAllEpisodes();
+    std::cout << test.getNumEpisodes();
 
 
     return 0;

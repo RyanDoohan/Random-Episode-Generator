@@ -11,6 +11,7 @@ struct Episode {
 
 class EpisodeList {
     private:
+        int numEpisodes;
         std::vector<Episode> EpisodeLst;
     public:
         EpisodeList(int episodeSeas, int episodeNum, std::string name) {
@@ -19,6 +20,7 @@ class EpisodeList {
             episode.episodeSeason = episodeSeas;
             episode.episodeName = name;
             EpisodeLst.push_back(episode);
+            numEpisodes = 1;
         }
 
         Episode getEpisode(int index) {
@@ -33,6 +35,11 @@ class EpisodeList {
 
         void addEpisode(Episode newEpisode) {
             EpisodeLst.push_back(newEpisode);
+            numEpisodes++;
+        }
+
+        int getNumEpisodes() {
+            return numEpisodes;
         }
 
         std::string getEpisodeString(int index) {
