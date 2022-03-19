@@ -8,6 +8,5 @@ int main() {
     test.inputEpisodes("theoffice");
     std::cout << test.getRandomEpisode();
     
-
     return 0;
 }

@@ -15,10 +15,11 @@ class EpisodeList {
     private:
         int numEpisodes; // Number of episodes currently stored in the episode list.
         std::vector<Episode> EpisodeLst; // Vector of Episode structs. Holds all epidoes.
+
     public:
         EpisodeList() {} // Default constructor with no arguments.
 
-        EpisodeList(int episodeSeas, int episodeNum, std::string name) { // Default constructor for adding first episode.
+        EpisodeList(int episodeSeas, int episodeNum, std::string name) { // Constructor for adding first episode.
             Episode episode;
             episode.episodeNumber = episodeNum;
             episode.episodeSeason = episodeSeas;
@@ -93,7 +94,7 @@ class EpisodeList {
         void inputEpisodes(std::string fileName) {  // Episode file parser that uses 's:' as a delimiter for splitting up seasons
             Episode epis;                           // each new episode is separated by a newline char. The parser will automatically look for this format
                                                     // every delimiter within the episode input file will indicate a new season.
-            std::ifstream episodeFile;              // The file parser looks for files only within the same host directory.
+            std::ifstream episodeFile;              // The file parser accepts files only within the same host directory.
             std::string fileLine;
             int episNum = 0, episSeas = 0;
 
