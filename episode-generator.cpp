@@ -4,9 +4,10 @@
 
 int main() {
     EpisodeList test;
+
+    test.inputEpisodes("theoffice");
+    std::cout << test.getRandomEpisode();
     
-    test.inputEpisodes("episodes");
-    test.displayAllEpisodes();
 
     return 0;
 }

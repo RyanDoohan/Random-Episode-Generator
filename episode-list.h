@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <random>
 
 struct Episode { // Holds the episodes season, number, and name.
             int episodeNumber, episodeSeason;
@@ -75,6 +76,18 @@ class EpisodeList {
             output += epis.episodeName;
 
             std::cout << output << std::endl;
+        }
+
+        std::string getRandomEpisode() { // Generate random episode from EpisodeLst.
+            std::string randomEpis;
+
+            std::random_device dev;
+            std::mt19937 rng(dev());
+            std::uniform_int_distribution<std::mt19937::result_type> dist6(0, numEpisodes); // distribution in range [1, 6]
+
+            randomEpis = getEpisodeString(dist6(rng)); // Look up and return random episode from EpisodeLst.
+
+            return randomEpis;
         }
 
         void inputEpisodes(std::string fileName) {  // Episode file parser that uses 's:' as a delimiter for splitting up seasons
