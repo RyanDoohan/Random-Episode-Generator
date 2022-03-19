@@ -2,6 +2,7 @@
 #define EPISODELIST
 
 #include <iostream>
+#include <fstream>
 #include <vector>
 
 struct Episode {
@@ -14,6 +15,8 @@ class EpisodeList {
         int numEpisodes;
         std::vector<Episode> EpisodeLst;
     public:
+        EpisodeList() {}
+        
         EpisodeList(int episodeSeas, int episodeNum, std::string name) {
             Episode episode;
             episode.episodeNumber = episodeNum;
@@ -61,6 +64,44 @@ class EpisodeList {
         void displayEpisodeNames() {
             for(Episode autoEpis : EpisodeLst) {
                 std::cout << autoEpis.episodeName << std::endl;
+            }
+        }
+
+        void displayEpisode(Episode epis) {
+            std::string output;
+
+            output = std::to_string(epis.episodeSeason) + " ";
+            output += std::to_string(epis.episodeNumber) + " ";
+            output += epis.episodeName;
+
+            std::cout << output << std::endl;
+        }
+
+        void inputEpisodes(std::string fileName) {
+            std::ifstream episodeFile;
+            Episode epis;
+            int episNum = 0, episSeas = 0;
+
+            episodeFile.open(fileName + ".txt");
+
+            std::string fileLine;
+            if(episodeFile.is_open()) {
+                while(std::getline(episodeFile, fileLine)) {
+                    if(fileLine == "s:") {
+                        episSeas++;
+                        episNum = 0;
+                    }
+                    else {
+                        episNum++;
+                        epis.episodeSeason = episSeas;
+                        epis.episodeNumber = episNum;
+                        epis.episodeName = fileLine;
+                        addEpisode(epis);
+                    }
+                }
+            }
+            else {
+                std::cout << "Invalid file name!\n";
             }
         }
 };
