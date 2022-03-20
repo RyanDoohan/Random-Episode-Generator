@@ -1,12 +1,14 @@
 #include <iostream>
 
 #include "episode-list.h"
+#include "display-functions.h"
 
 int main() {
-    EpisodeList test;
+    std::string inputFile;
 
-    test.inputEpisodes("theoffice");
-    std::cout << test.getRandomEpisode();
+    displayWelcomeMessage(inputFile);
+
     
+
     return 0;
 }

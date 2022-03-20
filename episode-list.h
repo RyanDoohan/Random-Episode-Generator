@@ -13,7 +13,6 @@ struct Episode { // Holds the episodes season, number, and name.
 
 class EpisodeList {
     private:
-        int numEpisodes; // Number of episodes currently stored in the episode list.
         std::vector<Episode> EpisodeLst; // Vector of Episode structs. Holds all epidoes.
 
     public:
@@ -25,7 +24,6 @@ class EpisodeList {
             episode.episodeSeason = episodeSeas;
             episode.episodeName = name;
             EpisodeLst.push_back(episode);
-            numEpisodes = 1;
         }
 
         Episode getEpisode(int index) { // Return an episode at a given index in EpisodeLst.
@@ -40,11 +38,10 @@ class EpisodeList {
 
         void addEpisode(Episode newEpisode) { // Push a new episode to EpisodeLst.
             EpisodeLst.push_back(newEpisode);
-            numEpisodes++; // Increment number of episodes.
         }
 
         int getNumEpisodes() { // Get number of episodes.
-            return numEpisodes;
+            return EpisodeLst.size();
         }
 
         std::string getEpisodeString(int index) { // Will return a single formatted episode string for output.
@@ -84,22 +81,24 @@ class EpisodeList {
 
             std::random_device dev;
             std::mt19937 rng(dev());
-            std::uniform_int_distribution<std::mt19937::result_type> dist6(0, numEpisodes); // distribution in range [1, 6]
+            std::uniform_int_distribution<std::mt19937::result_type> dist6(0, getNumEpisodes()); // distribution in range [1, 6]
 
             randomEpis = getEpisodeString(dist6(rng)); // Look up and return random episode from EpisodeLst.
 
             return randomEpis;
         }
 
-        void inputEpisodes(std::string fileName) {  // Episode file parser that uses 's:' as a delimiter for splitting up seasons
+        bool inputEpisodes(std::string fileName) {  // Episode file parser that uses 's:' as a delimiter for splitting up seasons
             Episode epis;                           // each new episode is separated by a newline char. The parser will automatically look for this format
                                                     // every delimiter within the episode input file will indicate a new season.
             std::ifstream episodeFile;              // The file parser accepts files only within the same host directory.
             std::string fileLine;
             int episNum = 0, episSeas = 0;
+            bool fileSuccess = false;
 
             episodeFile.open(fileName + ".txt");
             if(episodeFile.is_open()) { // Verify the input file was opened succesfully.
+                fileSuccess = true;
                 while(std::getline(episodeFile, fileLine)) {
                     if(fileLine == "s:") { // Check to see if fileLine contains the new season delimiter.
                         episSeas++;
@@ -117,6 +116,7 @@ class EpisodeList {
             else {
                 std::cout << "Invalid file name!\n"; // Error handling for invalid file.
             }
+            return fileSuccess;
         }
 };
 
