@@ -116,6 +116,7 @@ class EpisodeList {
             else {
                 std::cout << "Invalid file name!\n"; // Error handling for invalid file.
             }
+            std::cout << "\nSuccessfully imported episodes from " + fileName + ".txt!";
             return fileSuccess;
         }
 };
