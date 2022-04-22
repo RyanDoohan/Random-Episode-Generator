@@ -55,6 +55,8 @@ class EpisodeList {
         }
 
         void displayAllEpisodes() { // Iterate through the whole EpisodeLst vector and display all episodes.
+            int curSeason;
+
             for(int i = 0; i < EpisodeLst.size(); i++) {
                 std::cout << getEpisodeString(i) << std::endl;
             }
@@ -112,11 +114,8 @@ class EpisodeList {
                         addEpisode(epis); // Push new episode to EpisodeLst.
                     }
                 }
+                std::cout << "\nSuccessfully imported episodes from " + fileName + ".txt!";
             }
-            else {
-                std::cout << "Invalid file name!\n"; // Error handling for invalid file.
-            }
-            std::cout << "\nSuccessfully imported episodes from " + fileName + ".txt!";
             return fileSuccess;
         }
 };

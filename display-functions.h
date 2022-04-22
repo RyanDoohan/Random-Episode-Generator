@@ -17,7 +17,7 @@ EpisodeList inputEpisodeFile(std::string inputEpisodeFile) {
         return episList;
     }
     else {
-        std::cout << "File is invalid!\n";
+        std::cout << "\n*Error: File name entered is invalid!";
         return episList;
     }
 }
