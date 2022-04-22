@@ -96,7 +96,7 @@ class EpisodeList {
             int episNum = 0, episSeas = 0;
             bool fileSuccess = false;
 
-            episodeFile.open(fileName + ".txt");
+            episodeFile.open("episodeFiles/" + fileName + ".txt");
             if(episodeFile.is_open()) { // Verify the input file was opened succesfully.
                 fileSuccess = true;
                 while(std::getline(episodeFile, fileLine)) {
