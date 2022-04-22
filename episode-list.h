@@ -55,9 +55,17 @@ class EpisodeList {
         }
 
         void displayAllEpisodes() { // Iterate through the whole EpisodeLst vector and display all episodes.
-            int curSeason;
+            std::string curSeason = "1";
 
+            std:: cout << "\n\nSeason " + curSeason + ":\n";
+            
             for(int i = 0; i < EpisodeLst.size(); i++) {
+                if(std::to_string(EpisodeLst[i].episodeSeason) != curSeason) {
+                    curSeason = std::to_string(EpisodeLst[i].episodeSeason); // Update the current season place holder.
+
+                    std::cout << "\n\n"; // If it's a new season, insert line breaks.
+                    std:: cout << "Season " + curSeason + ":\n";
+                }
                 std::cout << getEpisodeString(i) << std::endl;
             }
         }
