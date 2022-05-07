@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "episode-list.h"
+#include "shows-list.h"
 
 bool ensureDisplayFirstRun = true, ensureEpisodesAdded = true;
 
@@ -34,7 +35,8 @@ int displayChoiceMenu() {
     std::cout << "2.) Display all episode entries with season & episode number.\n";
     std::cout << "3.) Display all episode name entries.\n";
     std::cout << "4.) Generate a random episode.\n";
-    std::cout << "5.) Exit.\n\n";
+    std::cout << "5.) Exit.\n";
+    std::cout << "6.) Add new show to the list.\n\n";
     std::cout << "Enter choice: ";
 
     std::getline(std::cin, userChoice);
@@ -57,9 +59,15 @@ void generateRandomEpisode(EpisodeList episList) {
     }
 }
 
+void getNewShowName(std::string & newShowName) {
+    std::cout << "\n\nEnter the name of the new show you would like the add here: ";
+    std::getline(std::cin, newShowName);
+}
+
 void displayMainMenu() {
     EpisodeList episList;
-    std::string inputFile, stop = "y";
+    ShowList allShows;
+    std::string newShowName, inputFile, stop = "y";
 
     while(stop == "y") {
         int retVal = displayChoiceMenu();
@@ -100,6 +108,14 @@ void displayMainMenu() {
             }
             case 5: {
                 stop = "n"; // Update the stop string to terminate.
+                break;
+            }
+            case 6: {
+                getNewShowName(newShowName);
+                getEpisodeFile(inputFile);
+                episList = inputEpisodeFile(inputFile);
+
+                allShows.insertNewShow(episList,newShowName);
                 break;
             }
             default: {

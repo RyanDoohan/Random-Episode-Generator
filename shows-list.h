@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include "episode-list.h"
+#include "display-functions.h"
 
 struct Show {
     std::string showName;
@@ -23,9 +24,13 @@ class ShowList {
             }
         }
 
-        insertNewShow(std::string name) {
+        insertNewShow(EpisodeList episList, std::string newShowName) {
             Show newShow;
-            newShow.showName = name;
+
+            newShow.showName = newShowName;
+            newShow.showEpisodes = episList;
+
+            showLst.push_back(newShow);
         }
 };
 
