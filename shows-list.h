@@ -36,12 +36,15 @@ class ShowList {
 
         EpisodeList searchShowList(std::string showName) {  // Find a show by showName string,
                                                             // Returns the EpisodeList object which can be referenced for other computation.
+            EpisodeList episList;
+
             for(int i = 0; i < showLst.size(); i++) {
                 if(showLst[i].showName == showName) {
                     return showLst[i].showEpisodes;
                 }
             }
-            std::cout << "*Error: Episode name entered was not found in the list of episodes.\n";
+            std::cout << "\n*Error: Episode name entered was not found in the list of episodes.";
+            return episList;
         }
 
         int getNumberOfShows() { // Return the number of shows currently added to the showLst vector.

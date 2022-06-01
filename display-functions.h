@@ -12,6 +12,11 @@ void getEpisodeFile(std::string & inputFile) {
     std::getline(std::cin, inputFile);
 }
 
+void getNewShowName(std::string & newShowName) {
+    std::cout << "\n\nEnter the name of the new show you would like the add here: ";
+    std::getline(std::cin, newShowName);
+}
+
 EpisodeList inputEpisodeFile(std::string inputEpisodeFile) {
     EpisodeList episList;
     if(episList.inputEpisodes(inputEpisodeFile)) {
@@ -21,47 +26,6 @@ EpisodeList inputEpisodeFile(std::string inputEpisodeFile) {
         std::cout << "\n*Error: File name entered is invalid!";
         return episList;
     }
-}
-
-int displayEpisodeChoiceMenu() {
-    std::string userChoice;
-
-    std::cout << "\n\n1.) Import a new episode file.\n";
-    std::cout << "2.) Display all episode entries with season & episode number.\n";
-    std::cout << "3.) Display all episode name entries.\n";
-    std::cout << "4.) Generate a random episode.\n";
-    std::cout << "5.) Exit.\n\n";
-    std::cout << "Enter choice: ";
-
-    std::getline(std::cin, userChoice);
-
-    return (int)userChoice[0] - 48;
-}
-
-int displayShowChoiceMenu(ShowList showLst) {
-    if(ensureDisplayFirstRun == true) {
-        std::cout << "Welcome to the random episode generator!";
-        ensureDisplayFirstRun = false;
-    }
-
-    std::string userChoice;
-
-    if(showLst.getNumberOfShows() < 1) {
-        std::cout << "\n\n1.) Add new show to the list.\n";
-        std::cout << "2.) Exit.\n\n";
-        std::cout << "Enter choice: ";
-    }
-    else {
-        std::cout << "\n\n1.) Add new show to the list.\n";
-        std::cout << "2.) Display all shows currently added to the list.\n";
-        std::cout << "3.) Chose an episode.\n";
-        std::cout << "4.) Return to show selection menu.\n\n";
-        std::cout << "Enter choice: ";
-    }
-
-    std::getline(std::cin, userChoice);
-
-    return (int)userChoice[0] - 48;
 }
 
 void generateRandomEpisode(EpisodeList episList) {
@@ -79,12 +43,22 @@ void generateRandomEpisode(EpisodeList episList) {
     }
 }
 
-void getNewShowName(std::string & newShowName) {
-    std::cout << "\n\nEnter the name of the new show you would like the add here: ";
-    std::getline(std::cin, newShowName);
+int displayEpisodeChoiceMenu() {
+    std::string userChoice;
+
+    std::cout << "\n\n1.) Import a new episode file.\n";
+    std::cout << "2.) Display all episode entries with season & episode number.\n";
+    std::cout << "3.) Display all episode name entries.\n";
+    std::cout << "4.) Generate a random episode.\n";
+    std::cout << "5.) Return to show selection menu.\n\n";
+    std::cout << "Enter choice: ";
+
+    std::getline(std::cin, userChoice);
+
+    return (int)userChoice[0] - 48;
 }
 
-void displayMainMenu(EpisodeList episList) {
+void displayEpisodeMenu(EpisodeList episList) {
     ShowList allShows;
     std::string newShowName, inputFile, stop = "y";
 
@@ -113,15 +87,44 @@ void displayMainMenu(EpisodeList episList) {
                 stop = "n"; // Update the stop string to terminate.
                 break;
             }
-
             default: {
                 std::cout << "\n*Error: Invalid input has been entered. Please restart!";
+                stop = "n"; // Update the stop string to terminate.
+                break;
             }
         }
     }
 }
 
-void displayMainerMenu() {
+int displayShowChoiceMenu(ShowList showLst) {
+    if(ensureDisplayFirstRun == true) {
+        std::cout << "\n\nWelcome to the random episode generator!";
+        ensureDisplayFirstRun = false;
+    }
+
+    std::string userChoice;
+
+    if(showLst.getNumberOfShows() < 1) {
+        std::cout << "\n\n1.) Add new show to the list.\n";
+        std::cout << "2.) Exit.\n\n";
+        std::cout << "Enter choice: ";
+    }
+    else {
+        std::cout << "\n\n1.) Add new show to the list.\n";
+        std::cout << "2.) Display all shows currently added to the list.\n";
+        std::cout << "3.) Choose a show.\n";
+        std::cout << "4.) Exit.\n\n";
+        std::cout << "Enter choice: ";
+    }
+
+    std::getline(std::cin, userChoice);
+
+    int retVal = (int)userChoice[0] - 48;
+
+    return retVal;
+}
+
+void displayShowMenu() {
     EpisodeList episList;
     ShowList allShows;
     std::string newShowName, inputFile, stop = "y";
@@ -135,7 +138,10 @@ void displayMainerMenu() {
                 getEpisodeFile(inputFile);
                 episList = inputEpisodeFile(inputFile);
 
-                allShows.insertNewShow(episList,newShowName);
+                if(episList.getNumEpisodes() > 0) {
+                    allShows.insertNewShow(episList, newShowName);
+                }
+
                 break;
             }
             case 2: {
@@ -143,7 +149,16 @@ void displayMainerMenu() {
                 break;
             }
             case 3: {
-                displayMainMenu(episList);
+                allShows.displayShowsByName();
+                
+                std::cout << "\nEnter the name of the show you want here: ";
+                std::getline(std::cin, newShowName);
+
+                episList = allShows.searchShowList(newShowName);
+
+                if(episList.getNumEpisodes() > 1) {
+                    displayEpisodeMenu(episList);
+                }
                 break;
             }
             case 4: {
@@ -152,6 +167,8 @@ void displayMainerMenu() {
             }
             default: {
                 std::cout << "\n*Error: Invalid input has been entered. Please restart!";
+                stop = "n"; // Update the stop string to terminate.
+                break;
             }
         }
     }

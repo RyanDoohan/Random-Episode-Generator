@@ -5,7 +5,7 @@
 #include "shows-list.h"
 
 int main() {
-    displayMainerMenu();
+    displayShowMenu();
     
     return 0;
 }
