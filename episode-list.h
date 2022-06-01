@@ -7,9 +7,9 @@
 #include <random>
 
 struct Episode { // Holds the episodes season, number, and name.
-            int episodeNumber, episodeSeason;
-            std::string episodeName;
-        };
+    int episodeNumber, episodeSeason;
+    std::string episodeName;
+};
 
 class EpisodeList {
     private:
