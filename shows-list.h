@@ -18,19 +18,34 @@ class ShowList {
     public:
         ShowList() {} // Default constructor with no arguments.
 
-        displayShowsByName() {
+        void displayShowsByName() { // Function to display all shows added to the showLst vector by their respective name.
+            std::cout << "\n\nAll currently imported shows:\n";
             for(int i = 0; i < showLst.size(); i++) {
-                std::cout << showLst[i].showName;
+                std::cout << i + 1 << ".) " << showLst[i].showName << std::endl;
             }
         }
 
-        insertNewShow(EpisodeList episList, std::string newShowName) {
+        void insertNewShow(EpisodeList episList, std::string newShowName) { // Inserts a new show to the showLst vector.
             Show newShow;
 
             newShow.showName = newShowName;
             newShow.showEpisodes = episList;
 
             showLst.push_back(newShow);
+        }
+
+        EpisodeList searchShowList(std::string showName) {  // Find a show by showName string,
+                                                            // Returns the EpisodeList object which can be referenced for other computation.
+            for(int i = 0; i < showLst.size(); i++) {
+                if(showLst[i].showName == showName) {
+                    return showLst[i].showEpisodes;
+                }
+            }
+            std::cout << "*Error: Episode name entered was not found in the list of episodes.\n";
+        }
+
+        int getNumberOfShows() { // Return the number of shows currently added to the showLst vector.
+            return showLst.size();
         }
 };
 
