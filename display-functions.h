@@ -43,14 +43,15 @@ void generateRandomEpisode(EpisodeList episList) {
     }
 }
 
-int displayEpisodeChoiceMenu() {
+int displayEpisodeChoiceMenu(std::string showName) {
     std::string userChoice;
 
-    std::cout << "\n\n1.) Import a new episode file.\n";
-    std::cout << "2.) Display all episode entries with season & episode number.\n";
-    std::cout << "3.) Display all episode name entries.\n";
-    std::cout << "4.) Generate a random episode.\n";
-    std::cout << "5.) Return to show selection menu.\n\n";
+    std::cout << "\n\n===== Episode Menu =====\n";
+    std::cout << "Current show: " << "'" << showName << "'" << "\n\n";
+    std::cout << "1.) Display all episode entries with season & episode number.\n";
+    std::cout << "2.) Display all episode name entries.\n";
+    std::cout << "3.) Generate a random episode.\n";
+    std::cout << "4.) Return to show selection menu.\n\n";
     std::cout << "Enter choice: ";
 
     std::getline(std::cin, userChoice);
@@ -58,32 +59,27 @@ int displayEpisodeChoiceMenu() {
     return (int)userChoice[0] - 48;
 }
 
-void displayEpisodeMenu(EpisodeList episList) {
+void displayEpisodeMenu(EpisodeList episList, std::string showName) {
     ShowList allShows;
     std::string newShowName, inputFile, stop = "y";
 
     while(stop == "y") {
-        int retVal = displayEpisodeChoiceMenu();
+        int retVal = displayEpisodeChoiceMenu(showName);
 
         switch(retVal) {
             case 1: {
-                getEpisodeFile(inputFile);
-                episList = inputEpisodeFile(inputFile);
-                break;
-            }
-            case 2: {
                 episList.displayAllEpisodes();
                 break;
             }
-            case 3: {
+            case 2: {
                 episList.displayEpisodeNames();
                 break;
             }
-            case 4: {
+            case 3: {
                 generateRandomEpisode(episList);
                 break;
             }
-            case 5: {
+            case 4: {
                 stop = "n"; // Update the stop string to terminate.
                 break;
             }
@@ -141,7 +137,6 @@ void displayShowMenu() {
                 if(episList.getNumEpisodes() > 0) {
                     allShows.insertNewShow(episList, newShowName);
                 }
-
                 break;
             }
             case 2: {
@@ -157,7 +152,7 @@ void displayShowMenu() {
                 episList = allShows.searchShowList(newShowName);
 
                 if(episList.getNumEpisodes() > 1) {
-                    displayEpisodeMenu(episList);
+                    displayEpisodeMenu(episList, newShowName);
                 }
                 break;
             }
