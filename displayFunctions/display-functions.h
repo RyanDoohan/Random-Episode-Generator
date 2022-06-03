@@ -17,7 +17,8 @@ int displayEpisodeChoiceMenu(std::string showName) {
     std::cout << "1.) Display all episode entries with season & episode number.\n";
     std::cout << "2.) Display all episode name entries.\n";
     std::cout << "3.) Generate a random episode.\n";
-    std::cout << "4.) Return to show selection menu.\n\n";
+    std::cout << "4.) Return to show selection menu.\n";
+    std::cout << "5.) Exit.\n\n";
     std::cout << "Enter choice: ";
 
     std::getline(std::cin, userChoice);
@@ -47,6 +48,10 @@ void displayEpisodeMenu(EpisodeList episList, std::string showName) {
             }
             case 4: {
                 stop = "n"; // Update the stop string to terminate.
+                break;
+            }
+            case 5: {
+                exit(0);
                 break;
             }
             default: {
