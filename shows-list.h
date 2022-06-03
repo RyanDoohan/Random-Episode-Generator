@@ -4,7 +4,6 @@
 #include <iostream>
 #include <vector>
 #include "episode-list.h"
-#include "display-functions.h"
 
 struct Show {
     std::string showName;
